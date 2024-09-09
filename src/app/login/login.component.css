@@ -1,0 +1,61 @@
+.login-card {
+  max-width: 400px;
+  margin: 40px auto;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  background-color: #fff;
+}
+
+.login-card-title {
+  text-align: center;
+  font-size: 24px;
+  color: #333;
+  margin-bottom: 20px;
+}
+
+mat-form-field {
+  width: 100%;
+  margin-bottom: 16px;
+}
+
+mat-form-field mat-label {
+  color: #555;
+}
+
+mat-form-field .mat-form-field-infix {
+  background-color: #f9f9f9;
+  border-radius: 4px;
+}
+
+mat-form-field .mat-form-field-flex {
+  color: #333;
+}
+
+mat-error {
+  color: #f44336;
+}
+
+.error-message {
+  color: #f44336;
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.button-container {
+  text-align: center;
+}
+
+button {
+  padding: 10px 20px;
+}
+
+button.mat-raised-button {
+  border-radius: 4px;
+}
+
+@media (max-width: 600px) {
+  .login-card {
+    width: 90%;
+  }
+}

@@ -1,0 +1,49 @@
+<div class="sign-up-container">
+  <h2 class="sign-up-title">Créer un Compte</h2>
+  <form [formGroup]="signUpForm" (ngSubmit)="onSubmit()" class="sign-up-form">
+    <mat-form-field appearance="fill">
+      <mat-label>Username</mat-label>
+      <input matInput formControlName="username" required />
+      <mat-error *ngIf="signUpForm.get('username')?.hasError('required')">
+        Username is required
+      </mat-error>
+    </mat-form-field>
+
+    <mat-form-field appearance="fill">
+      <mat-label>Email</mat-label>
+      <input matInput formControlName="email" type="email" required />
+      <mat-error *ngIf="signUpForm.get('email')?.hasError('required')">
+        Email is required
+      </mat-error>
+      <mat-error *ngIf="signUpForm.get('email')?.hasError('email')">
+        Enter a valid email
+      </mat-error>
+    </mat-form-field>
+
+    <mat-form-field appearance="fill">
+      <mat-label>Password</mat-label>
+      <input matInput formControlName="password" type="password" required />
+      <mat-error *ngIf="signUpForm.get('password')?.hasError('required')">
+        Password is required
+      </mat-error>
+      <mat-error *ngIf="signUpForm.get('password')?.hasError('minlength')">
+        Password must be at least 6 characters long
+      </mat-error>
+    </mat-form-field>
+
+    <mat-form-field appearance="fill">
+      <mat-label>Phone</mat-label>
+      <input matInput formControlName="phone" required />
+      <mat-error *ngIf="signUpForm.get('phone')?.hasError('required')">
+        Phone number is required
+      </mat-error>
+      <mat-error *ngIf="signUpForm.get('phone')?.hasError('pattern')">
+        Enter a valid phone number (10-15 digits)
+      </mat-error>
+    </mat-form-field>
+    <p *ngIf="message" style="color: green;font-weight: bold" class="message">{{ message }}</p>
+
+    <button mat-raised-button style="background-color: bisque;color: #222222" type="submit" [disabled]="signUpForm.invalid">Créer Compte</button>
+    <button mat-raised-button style="background-color: bisque;color: #222222" (click)="goToLogin()">Se Connecter</button>
+  </form>
+</div>
