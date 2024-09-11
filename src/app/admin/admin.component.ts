@@ -17,6 +17,8 @@ import {Task} from "../model/task";
 import {TaskService} from "../service/task.service";
 import {Ressource} from "../model/ressource";
 import {RessourceService} from "../service/ressource.service";
+import {ListProjectComponent} from "../list-project/list-project.component";
+import {RouterLink} from "@angular/router";
 
 @Component({
   selector: 'app-admin',
@@ -34,7 +36,9 @@ import {RessourceService} from "../service/ressource.service";
     MatButtonModule,
     NgIf,
     DatePipe,
-    NgForOf
+    NgForOf,
+    ListProjectComponent,
+    RouterLink
   ],
   templateUrl: './admin.component.html',
   styleUrl: './admin.component.css'
@@ -79,13 +83,11 @@ export class AdminComponent implements OnInit {
       title: [this.taskData?.title || '', [Validators.required]],
       description: [this.taskData?.description || '', [Validators.required]],
       status: [this.taskData?.status || '', [Validators.required]],
-      projectId: [this.taskData?.projectId || null, [Validators.required]]
     });
     this.resourceForm = this.fb.group({
       name: [this.resourceData?.name || '', [Validators.required]],
       type: [this.resourceData?.type || '', [Validators.required]],
       quantity: [this.resourceData?.quantity || '', [Validators.required]],
-      taskId: [this.resourceData?.taskId || null, [Validators.required]]
     });
       this.getAllProject();
   }
@@ -122,46 +124,63 @@ export class AdminComponent implements OnInit {
           }
         });
       }
+      this.message='';
     }
   }
 
   onSubmitTask() {
     if (this.taskForm.valid) {
       const task: Task = this.taskForm.value;
-
+      task.projectId=this.idProjectSelected;
       if (this.isEditTaskMode) {
         // Mode modification
-        task.projectId=this.idProjectSelected;
         console.log(task.projectId);
         task.id=this.idTaskSelected;
         this.taskService.updateTask(task).subscribe(data => {
+          this.refreshTask(task.projectId);
           this.message = data ? 'Tâche mise à jour avec succès' : 'Erreur lors de la mise à jour de la tâche !';
         });
       } else {
         this.taskService.saveTask(task).subscribe(data => {
+          this.refreshTask(task.projectId);
           this.message = data ? 'Tâche ajoutée avec succès' : 'Erreur lors de l\'ajout de la tâche !';
         });
       }
+      this.message='';
     }
   }
   onSubmitResource() {
     if (this.resourceForm.valid) {
       const resource: Ressource = this.resourceForm.value;
+      resource.taskId=this.idTaskSelected;
       if (this.isEditResourceMode) {
         resource.id=this.idRessourceSelected;
-        resource.taskId=this.idTaskSelected;
         this.ressourceService.updateRessource(resource).subscribe(data => {
+          this.refreshRessource(resource.taskId);
           this.message = data ? 'Ressource mise à jour avec succès' : 'Erreur lors de la mise à jour de la ressource !';
           this.isEditResourceMode = false;
         });
       } else {
         this.ressourceService.saveRessource(resource).subscribe(data => {
+          this.refreshRessource(resource.taskId);
           this.message = data ? 'Ressource ajoutée avec succès' : 'Erreur lors de l\'ajout de la ressource !';
         });
       }
+      this.message='';
     }
   }
 
+  refreshTask(id:number|undefined){
+    this.taskService.getAllTaskByIdProject(id).subscribe((tasks: Task[]) => {
+
+      this.tasks = tasks;
+    });
+  }
+  refreshRessource(id:number|undefined){
+    this.ressourceService.getAllRessourceByIdTask(id).subscribe((resources: Ressource[]) => {
+      this.ressources = resources;
+    });
+  }
   showAddProjectForm() {
     this.selectedProject=false;
     this.isFormProject=true;
@@ -191,6 +210,7 @@ export class AdminComponent implements OnInit {
     this.taskService.getAllTaskByIdProject(id).subscribe((tasks: Task[]) => {
       this.selectedProject=false;
       this.selectedProjectTasks=true;
+      this.idProjectSelected=id;
       console.log(tasks);
       this.tasks = tasks;
     });
@@ -208,9 +228,9 @@ export class AdminComponent implements OnInit {
     this.isEditTaskMode=true;
   }
 
-  deleteTask(taskId: number | undefined) {
+  deleteTask(taskId: number | undefined,idProject:number|undefined) {
     this.taskService.deleteTask(taskId).subscribe(() => {
-      this.viewTasks(this.idProjectSelected);
+      this.viewTasks(idProject);
     });
   }
 
@@ -218,6 +238,7 @@ export class AdminComponent implements OnInit {
     this.ressourceService.getAllRessourceByIdTask(taskId).subscribe((resources: Ressource[]) => {
       this.selectedProjectTasks=false;
       this.selectedTaskResources=true;
+      this.idTaskSelected=taskId;
       this.ressources = resources;
     });
   }
@@ -236,9 +257,9 @@ export class AdminComponent implements OnInit {
     this.isEditResourceMode=true;
   }
 
-  deleteResource(id: number | undefined) {
+  deleteResource(id: number | undefined,idTask:number|undefined) {
     this.ressourceService.deleteRessource(id).subscribe(() => {
-      this.viewResources(this.idTaskSelected);
+      this.viewResources(idTask);
     });
   }
 
@@ -250,5 +271,40 @@ export class AdminComponent implements OnInit {
   showAddRessourceForm() {
     this.selectedTaskResources=false;
     this.isFormRessource=true;
+  }
+
+
+  goBackToProjects() {
+    this.selectedProject=true;
+    this.selectedProjectTasks=false;
+    this.tasks=[];
+  }
+
+  goBackToTasks() {
+    this.selectedTaskResources=false;
+    this.selectedProjectTasks=true;
+    this.ressources=[];
+  }
+
+  goBackInRessourceForm() {
+    this.isFormRessource=false;
+    this.selectedTaskResources=true;
+    this.isFormRessource=false;
+    this.resourceForm.reset();
+  }
+
+  goBackInTaskForm() {
+    this.isEditTaskMode=false;
+    this.selectedProjectTasks=true;
+    this.isFormTask=false;
+    this.taskForm.reset();
+  }
+
+  goBackInProjectForm() {
+    this.isEditMode=false;
+    this.getAllProject();
+    this.selectedProject=true;
+    this.isFormProject=false;
+    this.projectForm.reset();
   }
 }

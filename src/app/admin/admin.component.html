@@ -1,194 +1,278 @@
-<div class="project" *ngIf="selectedProject">
-  <div class="add-project">
-    <button mat-raised-button color="primary" (click)="showAddProjectForm()">
-      Ajouter un projet
-    </button>
+
+<link href='https://unpkg.com/boxicons@2.0.7/css/boxicons.min.css' rel='stylesheet'>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<div class="sidebar">
+  <div class="logo-details">
+    <i class='bx bx-support icon'></i>
+    <i class='bx bx-menu' id="btn"></i>
   </div>
+  <ul class="nav-list">
+    <li>
+      <i class='bx bx-search' ></i>
+      <input type="text" placeholder="Search...">
+      <span class="tooltip">Search</span>
+    </li>
 
-  <!-- Liste des projets disponibles -->
-  <div class="project-list">
-    <h2>Projets Disponibles</h2>
+    <!--*************** MENU ********************-->
+    <li>
+      <a routerLink="main">
+        <i class='bx bx-grid-alt'></i>
+        <span class="links_name">Dashboard</span>
+      </a>
+      <span class="tooltip">Dashboard</span>
+    </li>
 
-    <div *ngFor="let project of projects" class="project-card">
-      <h3>{{ project.name }}</h3>
-      <p>Description : {{ project.description }}</p>
-      <p>Date de début : {{ project.startDate | date }}</p>
-      <p>Date de fin : {{ project.endDate | date }}</p>
-      <p>budget : {{ project.budget}}</p>
+    <li>
+      <a routerLink="userc">
+        <i class='bx bx-user' ></i>
+        <span class="links_name">User alaa</span>
+      </a>
+      <span class="tooltip">User</span>
+    </li>
 
-      <!-- Boutons pour modifier, supprimer et voir les tâches -->
-      <div class="project-actions">
-        <button mat-raised-button color="accent" (click)="editProject(project)">
-          Modifier
-        </button>
-        <button mat-raised-button color="warn" (click)="deleteProject(project.id)">
-          Supprimer
-        </button>
-        <button mat-raised-button color="primary" (click)="viewTasks(project.id)">
-          Voir les tâches
+
+
+  </ul>
+</div>
+<section class="home-section">
+
+  <!--   //// Header ////   -->
+
+  <div id="header">
+    <div class="header uboxed">
+      <ul class="logo">
+        <li id =lo>
+          <img class="logoo" src="./assets/images/logo.png" alt="Fimanbol">
+        </li>
+      </ul>
+      <ul class="menu">
+        <li><img src="https://byjaris.com/code/icons/home-alt.svg" alt="Fimanbol"></li>
+        <li><img src="https://byjaris.com/code/icons/menu-alt.svg" alt="Fimanbol"></li>
+
+      </ul>
+    </div>
+  </div>
+  <div class="header-space"></div>
+
+  <!--    Contenu    -->
+
+
+  <div style="padding: 80px">
+
+
+    <div class="project" *ngIf="selectedProject">
+      <div class="add-project">
+        <button mat-raised-button color="primary" (click)="showAddProjectForm()">
+          Ajouter un projet
         </button>
       </div>
-    </div>
-  </div>
-</div>
 
+      <!-- Liste des projets disponibles -->
+      <div class="project-list">
+        <h2>Projets Disponibles</h2>
 
-<div class="task" *ngIf="selectedProjectTasks">
-  <div class="add-task">
-    <button mat-raised-button color="primary" (click)="showAddTaskForm()">
-      Ajouter une task
-    </button>
-  </div>
-  <!-- Affichage des tâches liées au projet sélectionné -->
-  <div class="task-list">
-    <h2>Tâches du projet</h2>
+        <div *ngFor="let project of projects" class="project-card">
+          <h3>{{ project.name }}</h3>
+          <p>Description : {{ project.description }}</p>
+          <p>Date de début : {{ project.startDate | date }}</p>
+          <p>Date de fin : {{ project.endDate | date }}</p>
+          <p>budget : {{ project.budget}}</p>
 
-    <div *ngFor="let task of tasks" class="task-card">
-      <h3>{{ task.title }}</h3>
-      <p>Description : {{ task.description }}</p>
-      <p>Statut : {{ task.status }}</p>
-
-      <!-- Boutons pour modifier, supprimer et afficher les ressources -->
-      <div class="task-actions">
-        <button mat-raised-button color="accent" (click)="editTask(task)">
-          Modifier
-        </button>
-        <button mat-raised-button color="warn" (click)="deleteTask(task.id)">
-          Supprimer
-        </button>
-        <button mat-raised-button color="primary" (click)="viewResources(task.id)">
-          Voir les ressources
-        </button>
+          <!-- Boutons pour modifier, supprimer et voir les tâches -->
+          <div class="project-actions">
+            <button mat-raised-button color="accent" (click)="editProject(project)">
+              Modifier
+            </button>
+            <button mat-raised-button color="warn" (click)="deleteProject(project.id)">
+              Supprimer
+            </button>
+            <button mat-raised-button color="primary" (click)="viewTasks(project.id)">
+              Voir les tâches
+            </button>
+          </div>
+        </div>
       </div>
     </div>
-  </div>
-</div>
 
 
-
-<div class="task" *ngIf="selectedTaskResources">
-  <div class="add-ressource">
-    <button mat-raised-button color="primary" (click)="showAddRessourceForm()">
-      Ajouter une Ressource
-    </button>
-  </div>
-  <!-- Affichage des ressources associées à une tâche -->
-  <div class="resource-list">
-    <h2>Ressources associées</h2>
-    <div *ngFor="let resource of ressources" class="resource-card">
-      <h3>{{ resource.name }}</h3>
-      <p>Type : {{ resource.type }}</p>
-      <p>Quantité : {{ resource.quantity }}</p>
-
-      <!-- Boutons pour modifier et supprimer la ressource -->
-      <div class="resource-actions">
-        <button mat-raised-button color="accent" (click)="editResource(resource)">
-          Modifier
-        </button>
-        <button mat-raised-button color="warn" (click)="deleteResource(resource.id)">
-          Supprimer
+    <div class="task" *ngIf="selectedProjectTasks">
+      <div class="add-task">
+        <button mat-raised-button color="primary" (click)="showAddTaskForm()">
+          Ajouter une task
         </button>
       </div>
+      <!-- Affichage des tâches liées au projet sélectionné -->
+      <div class="task-list">
+        <h2>Tâches du projet</h2>
+
+        <div *ngFor="let task of tasks" class="task-card">
+          <h3>{{ task.title }}</h3>
+          <p>Description : {{ task.description }}</p>
+          <p>Statut : {{ task.status }}</p>
+
+          <!-- Boutons pour modifier, supprimer et afficher les ressources -->
+          <div class="task-actions">
+            <button mat-raised-button color="accent" (click)="editTask(task)">
+              Modifier
+            </button>
+            <button mat-raised-button color="warn" (click)="deleteTask(task.id,task.projectId)">
+              Supprimer
+            </button>
+            <button mat-raised-button color="primary" (click)="viewResources(task.id)">
+              Voir les ressources
+            </button>
+          </div>
+        </div>
+      </div>
+      <button mat-raised-button color="basic" (click)="goBackToProjects()">Retour aux Projets</button>
     </div>
+
+
+
+    <div class="task" *ngIf="selectedTaskResources">
+      <div class="add-ressource">
+        <button mat-raised-button color="primary" (click)="showAddRessourceForm()">
+          Ajouter une Ressource
+        </button>
+      </div>
+      <!-- Affichage des ressources associées à une tâche -->
+      <div class="resource-list">
+        <h2>Ressources associées</h2>
+        <div *ngFor="let resource of ressources" class="resource-card">
+          <h3>{{ resource.name }}</h3>
+          <p>Type : {{ resource.type }}</p>
+          <p>Quantité : {{ resource.quantity }}</p>
+
+          <!-- Boutons pour modifier et supprimer la ressource -->
+          <div class="resource-actions">
+            <button mat-raised-button color="accent" (click)="editResource(resource)">
+              Modifier
+            </button>
+            <button mat-raised-button color="warn" (click)="deleteResource(resource.id,resource.taskId)">
+              Supprimer
+            </button>
+          </div>
+        </div>
+      </div>
+      <button mat-raised-button color="basic" (click)="goBackToTasks()">Retour aux tâches</button>
+    </div>
+
+
+    <div class="project-form-container" *ngIf="isFormProject">
+      <h2>{{ isEditMode ? 'Modifier le projet' : 'Ajouter un projet' }}</h2>
+
+      <form [formGroup]="projectForm" (ngSubmit)="onSubmit()">
+        <mat-form-field appearance="outline">
+          <mat-label>Nom du projet</mat-label>
+          <input matInput placeholder="Nom du projet" formControlName="name" required>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+          <mat-label>Description</mat-label>
+          <textarea matInput placeholder="Description" formControlName="description" required></textarea>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+          <mat-label>Date de début</mat-label>
+          <input matInput [matDatepicker]="startPicker" formControlName="startDate" required>
+          <mat-datepicker-toggle matSuffix [for]="startPicker"></mat-datepicker-toggle>
+          <mat-datepicker #startPicker></mat-datepicker>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+          <mat-label>Date de fin</mat-label>
+          <input matInput [matDatepicker]="endPicker" formControlName="endDate" required>
+          <mat-datepicker-toggle matSuffix [for]="endPicker"></mat-datepicker-toggle>
+          <mat-datepicker #endPicker></mat-datepicker>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+          <mat-label>Budget</mat-label>
+          <input matInput type="number" placeholder="Budget" formControlName="budget">
+        </mat-form-field>
+        <p *ngIf="message" class="message success-message">{{ message }}</p>
+        <div class="actions">
+          <button mat-raised-button color="primary" type="submit">{{ isEditMode ? 'Mettre à jour' : 'Ajouter' }}</button>
+        </div>
+      </form>
+      <button mat-raised-button color="basic" (click)="goBackInProjectForm()">Retour aux Projets</button>
+    </div>
+
+
+    <div class="task-form-container" *ngIf="isFormTask">
+      <h2>{{ isEditTaskMode ? 'Modifier la tâche' : 'Ajouter une tâche' }}</h2>
+
+      <form [formGroup]="taskForm" (ngSubmit)="onSubmitTask()">
+        <mat-form-field appearance="outline">
+          <mat-label>Titre de la tâche</mat-label>
+          <input matInput placeholder="Titre de la tâche" formControlName="title" required>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+          <mat-label>Description</mat-label>
+          <textarea matInput placeholder="Description" formControlName="description" required></textarea>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+          <mat-label>Statut</mat-label>
+          <input matInput placeholder="Statut" formControlName="status" required>
+        </mat-form-field>
+
+        <p *ngIf="message" class="message success-message">{{ message }}</p>
+        <div class="actions">
+          <button mat-raised-button color="primary" type="submit">
+            {{ isEditTaskMode ? 'Mettre à jour' : 'Ajouter' }}
+          </button>
+        </div>
+      </form>
+      <button mat-raised-button color="basic" (click)="goBackInTaskForm()">Retour aux Taches</button>
+    </div>
+
+
+    <div class="resource-form-container" *ngIf="isFormRessource">
+      <h2>{{ isEditResourceMode ? 'Modifier la ressource' : 'Ajouter une ressource' }}</h2>
+
+      <form [formGroup]="resourceForm" (ngSubmit)="onSubmitResource()">
+        <mat-form-field appearance="outline">
+          <mat-label>Nom de la ressource</mat-label>
+          <input matInput placeholder="Nom de la ressource" formControlName="name" required>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+          <mat-label>Type</mat-label>
+          <input matInput placeholder="Type" formControlName="type" required>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+          <mat-label>Quantité</mat-label>
+          <input matInput type="number" placeholder="Quantité" formControlName="quantity" required>
+        </mat-form-field>
+
+        <p *ngIf="message" class="message success-message">{{ message }}</p>
+        <div class="actions">
+          <button mat-raised-button color="primary" type="submit">
+            {{ isEditResourceMode ? 'Mettre à jour' : 'Ajouter' }}
+          </button>
+        </div>
+      </form>
+      <button mat-raised-button color="basic" (click)="goBackInRessourceForm()">Retour aux Ressources</button>
+    </div>
+
+
+
   </div>
 
-</div>
 
 
-<div class="project-form-container" *ngIf="isFormProject">
-  <h2>{{ isEditMode ? 'Modifier le projet' : 'Ajouter un projet' }}</h2>
-
-  <form [formGroup]="projectForm" (ngSubmit)="onSubmit()">
-    <mat-form-field appearance="outline">
-      <mat-label>Nom du projet</mat-label>
-      <input matInput placeholder="Nom du projet" formControlName="name" required>
-    </mat-form-field>
-
-    <mat-form-field appearance="outline">
-      <mat-label>Description</mat-label>
-      <textarea matInput placeholder="Description" formControlName="description" required></textarea>
-    </mat-form-field>
-
-    <mat-form-field appearance="outline">
-      <mat-label>Date de début</mat-label>
-      <input matInput [matDatepicker]="startPicker" formControlName="startDate" required>
-      <mat-datepicker-toggle matSuffix [for]="startPicker"></mat-datepicker-toggle>
-      <mat-datepicker #startPicker></mat-datepicker>
-    </mat-form-field>
-
-    <mat-form-field appearance="outline">
-      <mat-label>Date de fin</mat-label>
-      <input matInput [matDatepicker]="endPicker" formControlName="endDate" required>
-      <mat-datepicker-toggle matSuffix [for]="endPicker"></mat-datepicker-toggle>
-      <mat-datepicker #endPicker></mat-datepicker>
-    </mat-form-field>
-
-    <mat-form-field appearance="outline">
-      <mat-label>Budget</mat-label>
-      <input matInput type="number" placeholder="Budget" formControlName="budget">
-    </mat-form-field>
-    <p *ngIf="message" class="message success-message">{{ message }}</p>
-    <div class="actions">
-      <button mat-raised-button color="primary" type="submit">{{ isEditMode ? 'Mettre à jour' : 'Ajouter' }}</button>
-    </div>
-  </form>
-</div>
+</section>
 
 
-<div class="task-form-container" *ngIf="isFormTask">
-  <h2>{{ isEditTaskMode ? 'Modifier la tâche' : 'Ajouter une tâche' }}</h2>
-
-  <form [formGroup]="taskForm" (ngSubmit)="onSubmitTask()">
-    <mat-form-field appearance="outline">
-      <mat-label>Titre de la tâche</mat-label>
-      <input matInput placeholder="Titre de la tâche" formControlName="title" required>
-    </mat-form-field>
-
-    <mat-form-field appearance="outline">
-      <mat-label>Description</mat-label>
-      <textarea matInput placeholder="Description" formControlName="description" required></textarea>
-    </mat-form-field>
-
-    <mat-form-field appearance="outline">
-      <mat-label>Statut</mat-label>
-      <input matInput placeholder="Statut" formControlName="status" required>
-    </mat-form-field>
-
-    <p *ngIf="message" class="message success-message">{{ message }}</p>
-    <div class="actions">
-      <button mat-raised-button color="primary" type="submit">
-        {{ isEditTaskMode ? 'Mettre à jour' : 'Ajouter' }}
-      </button>
-    </div>
-  </form>
-</div>
+<script src="https://byjaris.com/code/libs/jquery.min.js"></script>
+<script src="https://byjaris.com/code/libs/wow.js"></script>
+<script></script>
 
 
-<div class="resource-form-container" *ngIf="isFormRessource">
-  <h2>{{ isEditResourceMode ? 'Modifier la ressource' : 'Ajouter une ressource' }}</h2>
 
-  <form [formGroup]="resourceForm" (ngSubmit)="onSubmitResource()">
-    <mat-form-field appearance="outline">
-      <mat-label>Nom de la ressource</mat-label>
-      <input matInput placeholder="Nom de la ressource" formControlName="name" required>
-    </mat-form-field>
 
-    <mat-form-field appearance="outline">
-      <mat-label>Type</mat-label>
-      <input matInput placeholder="Type" formControlName="type" required>
-    </mat-form-field>
-
-    <mat-form-field appearance="outline">
-      <mat-label>Quantité</mat-label>
-      <input matInput type="number" placeholder="Quantité" formControlName="quantity" required>
-    </mat-form-field>
-
-    <p *ngIf="message" class="message success-message">{{ message }}</p>
-    <div class="actions">
-      <button mat-raised-button color="primary" type="submit">
-        {{ isEditResourceMode ? 'Mettre à jour' : 'Ajouter' }}
-      </button>
-    </div>
-  </form>
-</div>
 
