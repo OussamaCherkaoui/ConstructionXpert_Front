@@ -1,0 +1,95 @@
+/* Conteneur général pour les formulaires */
+.resource-form-container, .project-form-container, .task-form-container {
+  margin: 20px;
+  padding: 20px;
+  border-radius: 8px;
+  background-color: #f9f9f9;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Titre des formulaires */
+h2 {
+  margin-bottom: 20px;
+  color: #333;
+}
+
+/* Style des champs de formulaire */
+mat-form-field {
+  width: 100%;
+  margin-bottom: 16px;
+}
+
+/* Style pour les messages de succès ou d'erreur */
+.message {
+  margin-top: 20px;
+  font-size: 14px;
+  font-weight: bold;
+}
+
+.success-message {
+  color: #4caf50; /* Couleur pour les messages de succès */
+}
+
+/* Style pour les boutons d'action */
+.actions {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 20px;
+}
+
+button {
+  font-size: 14px;
+}
+
+/* Style pour les boutons en mode "mettre à jour" ou "ajouter" */
+button.mat-raised-button {
+  padding: 10px 20px;
+}
+
+/* Spécifique pour les champs de texte avec type 'number' */
+mat-form-field input[type='number'] {
+  -moz-appearance: textfield; /* Supprimer les flèches sur Firefox */
+}
+
+mat-form-field input[type='number']::-webkit-inner-spin-button {
+  -webkit-appearance: none; /* Supprimer les flèches sur Chrome et Safari */
+}
+
+mat-form-field input[type='number']::-webkit-outer-spin-button {
+  -webkit-appearance: none; /* Supprimer les flèches sur Chrome et Safari */
+}
+
+
+.add-project {
+  margin-bottom: 20px;
+}
+
+.project-list, .task-list, .resource-list {
+  margin-bottom: 40px;
+}
+
+.project-card, .task-card, .resource-card {
+  border: 1px solid #ccc;
+  padding: 15px;
+  margin-bottom: 15px;
+  border-radius: 8px;
+  box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.project-actions, .task-actions {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 15px;
+}
+
+.task-list {
+  margin-top: 30px;
+}
+
+.resource-card {
+  border: 1px solid #ccc;
+  padding: 10px;
+  margin-bottom: 10px;
+  border-radius: 8px;
+  box-shadow: 1px 1px 4px rgba(0, 0, 0, 0.1);
+}

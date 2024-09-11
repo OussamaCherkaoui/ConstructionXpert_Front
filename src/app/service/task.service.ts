@@ -25,7 +25,7 @@ export class TaskService {
     });
   }
 
-  public getAllTaskByIdProject(id:number):Observable<any> {
+  public getAllTaskByIdProject(id: number | undefined):Observable<any> {
     return this.http.get<any>(`${this.apiUrl}/getTaskByIdProject/${id}`,{ headers: this.getHeaders() });
   }
 
