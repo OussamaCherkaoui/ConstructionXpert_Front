@@ -198,19 +198,16 @@ body {
   border-radius: 12px;
 }
 .logoo{
-  height: 59px;
+  height: 45px;
   transition: all ease-in-out 0.3s;
-  margin-top: 6px;
 }
 #lo{
   height: 59px;
   transition: all ease-in-out 0.3s;
   margin-top: 6px;
 }
-#header[_ngcontent-ng-c2455513739] .header[_ngcontent-ng-c2455513739] .logo[_ngcontent-ng-c2455513739] img[_ngcontent-ng-c2455513739] {
-  height: 59px;
-  transition: all ease-in-out 0.3s;
-  margin-top: 6px;
+.divLogo{
+
 }
 
 .sidebar.open li.profile {
