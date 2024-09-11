@@ -25,8 +25,8 @@ export class ProjectService {
     });
   }
 
-  public getAllProject():Observable<any> {
-    return this.http.get<any>(`${this.apiUrl}/getAll`);
+  public getAllProject():Observable<Project[]> {
+    return this.http.get<Project[]>(`${this.apiUrl}/getAll`);
   }
 
   public saveProject(project:Project): Observable<any> {
