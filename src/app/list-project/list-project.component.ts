@@ -1,12 +1,12 @@
 import {Component, OnInit} from '@angular/core';
 import {Project} from "../model/project";
-import {HttpClient} from "@angular/common/http";
 import {ProjectService} from "../service/project.service";
+import {CommonModule} from "@angular/common";
 
 @Component({
   selector: 'app-list-project',
   standalone: true,
-  imports: [],
+  imports: [CommonModule],
   templateUrl: './list-project.component.html',
   styleUrl: './list-project.component.css'
 })
@@ -24,7 +24,7 @@ constructor(private  projetService :ProjectService) {
 
    getAllProject(){
  this.projetService.getAllProject().subscribe((data :Project[]) =>{
-   this.ListProject =data;
+   this.ListProject = data;
  })
 }
 
