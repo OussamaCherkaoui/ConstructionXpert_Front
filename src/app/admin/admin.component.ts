@@ -53,8 +53,16 @@ export class AdminComponent implements OnInit {
   projects: Project[] = [];
   tasks: Task[] | null = null;
   ressources: Ressource[] | null = null;
+  selectedProject:boolean=true;
   selectedTaskResources: boolean=false;
   selectedProjectTasks: boolean=false;
+  isFormProject: boolean=false;
+  isFormTask: boolean=false;
+  isFormRessource: boolean=false;
+  idProjectSelected:number | undefined=0;
+  idTaskSelected:number| undefined=0;
+  idRessourceSelected:number| undefined=0;
+
   constructor(private fb: FormBuilder,private projectService:ProjectService,private taskService: TaskService,private ressourceService: RessourceService) {}
 
   ngOnInit(): void {
@@ -91,6 +99,17 @@ export class AdminComponent implements OnInit {
     if (this.projectForm.valid) {
       const project: Project = this.projectForm.value;
       if (this.isEditMode) {
+        project.id=this.idProjectSelected;
+        console.log(project);
+        this.projectService.updateProject(project).subscribe(data => {
+          if (data)
+          {
+            this.message='Project Modifié avec succes';
+          }
+          else{
+            this.message="Erreur lors de modification !! Ressayer "
+          }
+        });
         console.log('Projet mis à jour : ', project);
       } else {
         this.projectService.saveProject(project).subscribe(data => {
@@ -110,14 +129,15 @@ export class AdminComponent implements OnInit {
     if (this.taskForm.valid) {
       const task: Task = this.taskForm.value;
 
-      if (this.isEditTaskMode && this.taskData) {
+      if (this.isEditTaskMode) {
         // Mode modification
+        task.projectId=this.idProjectSelected;
+        console.log(task.projectId);
+        task.id=this.idTaskSelected;
         this.taskService.updateTask(task).subscribe(data => {
           this.message = data ? 'Tâche mise à jour avec succès' : 'Erreur lors de la mise à jour de la tâche !';
-          this.isEditTaskMode = false; // Revenir en mode ajout après modification
         });
       } else {
-        console.log(task);
         this.taskService.saveTask(task).subscribe(data => {
           this.message = data ? 'Tâche ajoutée avec succès' : 'Erreur lors de l\'ajout de la tâche !';
         });
@@ -127,7 +147,9 @@ export class AdminComponent implements OnInit {
   onSubmitResource() {
     if (this.resourceForm.valid) {
       const resource: Ressource = this.resourceForm.value;
-      if (this.isEditResourceMode && this.resourceData) {
+      if (this.isEditResourceMode) {
+        resource.id=this.idRessourceSelected;
+        resource.taskId=this.idTaskSelected;
         this.ressourceService.updateRessource(resource).subscribe(data => {
           this.message = data ? 'Ressource mise à jour avec succès' : 'Erreur lors de la mise à jour de la ressource !';
           this.isEditResourceMode = false;
@@ -141,40 +163,54 @@ export class AdminComponent implements OnInit {
   }
 
   showAddProjectForm() {
-
+    this.selectedProject=false;
+    this.isFormProject=true;
   }
 
   editProject(project:Project) {
-
+    this.projectForm = this.fb.group({
+      name: [project.name],
+      description: [project.description],
+      startDate: [project.startDate],
+      endDate: [project.endDate],
+      budget: [project.budget]
+    });
+    this.idProjectSelected=project.id;
+    this.selectedProject=false;
+    this.isFormProject=true;
+    this.isEditMode=true;
   }
 
   deleteProject(id: number | undefined) {
         this.projectService.deleteProject(id).subscribe(data => {
-          if (data)
-          {
-            console.log('Project supprimé avec succes');
             this.getAllProject();
-          }
-          else{
-            console.log('Erreur lors d suppression !! Ressayer ');
-          }
         });
   }
 
   viewTasks(id: number | undefined) {
     this.taskService.getAllTaskByIdProject(id).subscribe((tasks: Task[]) => {
+      this.selectedProject=false;
       this.selectedProjectTasks=true;
       console.log(tasks);
       this.tasks = tasks;
     });
   }
   editTask(task: Task) {
-    // Logic pour modifier la tâche
+    this.taskForm = this.fb.group({
+      status: [task.status],
+      description: [task.description],
+      title: [task.title]
+    });
+    this.idTaskSelected=task.id;
+    this.idProjectSelected=task.projectId;
+    this.selectedProjectTasks=false;
+    this.isFormTask=true;
+    this.isEditTaskMode=true;
   }
 
   deleteTask(taskId: number | undefined) {
     this.taskService.deleteTask(taskId).subscribe(() => {
-      this.viewTasks(taskId); // Recharger les tâches après suppression
+      this.viewTasks(this.idProjectSelected);
     });
   }
 
@@ -186,11 +222,33 @@ export class AdminComponent implements OnInit {
     });
   }
 
-  editResource(resource: any) {
-
+  editResource(resource: Ressource) {
+    this.resourceForm = this.fb.group({
+      type: [resource.type],
+      name: [resource.name],
+      quantity: [resource.quantity]
+    });
+    this.idRessourceSelected=resource.id;
+    this.idTaskSelected=resource.taskId;
+    console.log(this.idRessourceSelected);
+    this.selectedTaskResources=false;
+    this.isFormRessource=true;
+    this.isEditResourceMode=true;
   }
 
   deleteResource(id: number | undefined) {
+    this.ressourceService.deleteRessource(id).subscribe(() => {
+      this.viewResources(this.idTaskSelected);
+    });
+  }
 
+  showAddTaskForm() {
+    this.selectedProjectTasks=false;
+    this.isFormTask=true;
+  }
+
+  showAddRessourceForm() {
+    this.selectedTaskResources=false;
+    this.isFormRessource=true;
   }
 }

@@ -34,7 +34,7 @@ export class ProjectService {
   }
 
   public updateProject(project:Project): Observable<any> {
-    return this.http.put<any>(`${this.apiUrl}/updateProject`,event, { headers: this.getHeaders() });
+    return this.http.put<any>(`${this.apiUrl}/updateProject`,project, { headers: this.getHeaders() });
   }
 
   public deleteProject(id: number | undefined): Observable<any> {

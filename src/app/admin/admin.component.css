@@ -60,7 +60,7 @@ mat-form-field input[type='number']::-webkit-outer-spin-button {
 }
 
 
-.add-project {
+.add-project ,add-task,add-ressource{
   margin-bottom: 20px;
 }
 
