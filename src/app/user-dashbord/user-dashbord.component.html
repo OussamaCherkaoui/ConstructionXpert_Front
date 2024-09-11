@@ -1,0 +1,93 @@
+
+<link href='https://unpkg.com/boxicons@2.0.7/css/boxicons.min.css' rel='stylesheet'>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<div class="sidebar">
+  <div class="logo-details">
+    <i class='bx bx-support icon'></i>
+    <i class='bx bx-menu' id="btn"></i>
+  </div>
+  <ul class="nav-list">
+    <li>
+      <i class='bx bx-search' ></i>
+      <input type="text" placeholder="Search...">
+      <span class="tooltip">Search</span>
+    </li>
+
+    <!--*************** MENU ********************-->
+    <li>
+      <a routerLink="main">
+        <i class='bx bx-grid-alt'></i>
+        <span class="links_name">Dashboard</span>
+      </a>
+      <span class="tooltip">Dashboard</span>
+    </li>
+
+    <li>
+      <a routerLink="userc">
+        <i class='bx bx-user' ></i>
+        <span class="links_name">User alaa</span>
+      </a>
+      <span class="tooltip">User</span>
+    </li>
+    <li>
+      <a routerLink="equipement">
+        <i class='bx bx-calendar'></i>
+        <span class="links_name">Equipement</span>
+      </a>
+      <span class="tooltip">Event</span>
+    </li>
+
+    <li>
+      <a routerLink="panne">
+        <i class='bx bx-chat' ></i>
+        <span class="links_name">Panne</span>
+      </a>
+      <span class="tooltip">Panne</span>
+    </li>
+
+
+
+  </ul>
+</div>
+<section class="home-section">
+
+  <!--   //// Header ////   -->
+
+  <div id="header">
+    <div class="header uboxed">
+      <ul class="logo">
+        <li id =lo>
+          <img class="logoo" src="./assets/images/logo.png" alt="Fimanbol">
+        </li>
+      </ul>
+      <ul class="menu">
+        <li><img src="https://byjaris.com/code/icons/home-alt.svg" alt="Fimanbol"></li>
+        <li><img src="https://byjaris.com/code/icons/menu-alt.svg" alt="Fimanbol"></li>
+
+      </ul>
+    </div>
+  </div>
+  <div class="header-space"></div>
+
+  <!--    Contenu    -->
+
+
+  <div>
+
+    <app-list-project></app-list-project>
+
+  </div>
+
+
+
+</section>
+
+
+<script src="https://byjaris.com/code/libs/jquery.min.js"></script>
+<script src="https://byjaris.com/code/libs/wow.js"></script>
+<script></script>
+
+
+
+
