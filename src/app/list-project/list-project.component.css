@@ -1,0 +1,67 @@
+.user-container {
+  background-color: #2E3B4E; /* Fond gris-bleu foncé compatible avec un dashboard sombre */
+  padding: 20px;
+  border-radius: 10px;
+}
+
+h2 {
+  color: #FFFFFF; /* Titre en blanc pour contraste */
+}
+
+.card {
+  border: none;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s;
+}
+
+.card:hover {
+  transform: scale(1.02);
+}
+
+.card-body {
+  background-color: #3A475C; /* Fond gris-bleu moyen */
+}
+
+.card-title {
+  color: #FFCC00; /* Jaune vif pour le titre, attirant l'attention */
+}
+
+.card-subtitle {
+  color: #A5B1C2; /* Gris clair pour le sous-titre */
+}
+
+.list-group-item {
+  border: none;
+  background-color: #3A475C; /* Même fond que la carte */
+}
+
+.card-footer {
+  background-color: #2E3B4E; /* Fond plus sombre pour le pied de carte */
+  border-top: 1px solid #A5B1C2; /* Bordure en gris clair */
+  border-radius: 0 0 10px 10px;
+  padding: 10px;
+}
+
+.Buttons {
+  display: flex;
+  justify-content: space-between;
+}
+
+.btn {
+  margin: 0 5px;
+  padding: 8px 12px;
+  font-size: 14px;
+}
+
+.btn-primary {
+  background-color: #FFCC00; /* Jaune vif pour bouton primaire */
+  border-color: #FFCC00;
+  color: #11101D; /* Texte sombre */
+}
+
+.btn-primary:hover {
+  background-color: #FFD700; /* Jaune légèrement plus lumineux au survol */
+  border-color: #FFD700;
+  color: #11101D;
+}

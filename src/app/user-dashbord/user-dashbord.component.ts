@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import {RouterLink} from "@angular/router";
+import {RouterLink, RouterOutlet} from "@angular/router";
 import {ListProjectComponent} from "../list-project/list-project.component";
 
 @Component({
@@ -7,7 +7,8 @@ import {ListProjectComponent} from "../list-project/list-project.component";
   standalone: true,
   imports: [
     RouterLink,
-    ListProjectComponent
+    ListProjectComponent,
+    RouterOutlet
   ],
   templateUrl: './user-dashbord.component.html',
   styleUrl: './user-dashbord.component.css'
