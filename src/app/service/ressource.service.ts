@@ -25,7 +25,7 @@ export class RessourceService {
     });
   }
 
-  public getAllRessourceByIdTask(id:number):Observable<any> {
+  public getAllRessourceByIdTask(id: number | undefined):Observable<any> {
     return this.http.get<any>(`${this.apiUrl}/getRessourceByIdTask/${id}`,{ headers: this.getHeaders() });
   }
 

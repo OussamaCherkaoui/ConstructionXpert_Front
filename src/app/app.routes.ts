@@ -3,9 +3,9 @@ import {SignupComponent} from "./signup/signup.component";
 import {LoginComponent} from "./login/login.component";
 import {AdminComponent} from "./admin/admin.component";
 import {UserDashbordComponent} from "./user-dashbord/user-dashbord.component";
+import {ListProjectComponent} from "./list-project/list-project.component";
 import {ListTaskComponent} from "./list-task/list-task.component";
 import {ListRessourceComponent} from "./list-ressource/list-ressource.component";
-import {ListProjectComponent} from "./list-project/list-project.component";
 
 export const routes: Routes = [
   { path: '', component: LoginComponent},

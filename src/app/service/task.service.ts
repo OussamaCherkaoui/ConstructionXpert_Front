@@ -2,7 +2,6 @@ import { Injectable } from '@angular/core';
 import {HttpClient, HttpHeaders} from "@angular/common/http";
 import {Observable} from "rxjs";
 import {Task} from "../model/task";
-import {Project} from "../model/project";
 
 @Injectable({
   providedIn: 'root'
@@ -26,8 +25,8 @@ export class TaskService {
     });
   }
 
-  public getAllTaskByIdProject(id:number):Observable<Task[]> {
-    return this.http.get<Task[]>(`${this.apiUrl}/getTaskByIdProject/${id}`,{ headers: this.getHeaders() });
+  public getAllTaskByIdProject(id: number | undefined):Observable<any> {
+    return this.http.get<any>(`${this.apiUrl}/getTaskByIdProject/${id}`,{ headers: this.getHeaders() });
   }
 
   public saveTask(task:Task): Observable<any> {
