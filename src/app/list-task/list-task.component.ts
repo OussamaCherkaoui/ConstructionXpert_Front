@@ -1,16 +1,21 @@
 import {Component, OnInit} from '@angular/core';
 import {Task} from "../model/task";
 import {TaskService} from "../service/task.service";
+import {RouterLink} from "@angular/router";
+import {NgForOf} from "@angular/common";
 
 @Component({
   selector: 'app-list-task',
   standalone: true,
-  imports: [],
+  imports: [
+    RouterLink,
+    NgForOf
+  ],
   templateUrl: './list-task.component.html',
   styleUrl: './list-task.component.css'
 })
 export class ListTaskComponent implements OnInit {
-  id_project!:number;
+  id_project:number =1;
 
   ngOnInit(): void {
     this.getAllTasks();
