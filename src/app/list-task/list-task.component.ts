@@ -1,8 +1,8 @@
-import {Component, OnInit} from '@angular/core';
-import {Task} from "../model/task";
-import {TaskService} from "../service/task.service";
-import {RouterLink} from "@angular/router";
-import {NgForOf} from "@angular/common";
+import { Component, OnInit } from '@angular/core';
+import { Task } from "../model/task";
+import { TaskService } from "../service/task.service";
+import { ActivatedRoute, RouterLink } from "@angular/router";
+import { NgForOf } from "@angular/common";
 
 @Component({
   selector: 'app-list-task',
@@ -12,28 +12,27 @@ import {NgForOf} from "@angular/common";
     NgForOf
   ],
   templateUrl: './list-task.component.html',
-  styleUrl: './list-task.component.css'
+  styleUrls: ['./list-task.component.css'] // Correction ici
 })
 export class ListTaskComponent implements OnInit {
-  id_project:number =1;
-
-  ngOnInit(): void {
-    this.getAllTasks();
-  }
+  id!: number;
 
   listTasks: Task[] = [];
 
-  constructor(private taskService: TaskService) {
+  constructor(private taskService: TaskService, private route: ActivatedRoute) {}
 
+  ngOnInit(): void {
+    // Récupérer l'ID du projet à partir de l'URL
+    this.route.params.subscribe(params => {
+      this.id = +params['id']; // Convertir en nombre
+      this.getAllTasks();
+    });
   }
 
-
+  // Méthode pour récupérer toutes les tâches du projet via le service
   getAllTasks() {
-    this.taskService.getAllTaskByIdProject(this.id_project).subscribe((data: Task[]) => {
+    this.taskService.getAllTaskByIdProject(this.id).subscribe((data: Task[]) => {
       this.listTasks = data;
-    })
-
-
+    });
   }
-
 }

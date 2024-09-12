@@ -16,7 +16,7 @@ export const routes: Routes = [
     component:UserDashbordComponent,
     children:[
       { path : 'project', component:ListProjectComponent},
-      { path : 'task', component:ListTaskComponent},
+      { path : 'task/:id', component:ListTaskComponent},
       { path : 'ressource' , component:ListRessourceComponent},
 
     ] },

@@ -8,15 +8,20 @@
           <h6 class="card-subtitle mb-2 text-muted">{{project.startDate}} - {{project.endDate}}</h6>
           <ul class="list-group list-group-flush">
             <li class="list-group-item"><strong>Description:</strong> {{project.description}}</li>
-            <!--<li class="list-group-item"><strong>Budget:</strong> {{project.budget | currency}}</li> -->
+            <li class="list-group-item"><strong>Budget:</strong> {{project.budget | currency}}</li>
           </ul>
         </div>
         <div class="card-footer">
           <div class="d-flex justify-content-between">
-            <a class="btn btn-primary btn-sm" [routerLink]="'/user/task'">Task</a>
+             <a class="btn btn-primary btn-sm" [routerLink]="['/user/task', project.id]">Task</a>
           </div>
         </div>
       </div>
     </div>
   </div>
 </div>
+
+
+
+
+
