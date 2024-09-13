@@ -17,7 +17,7 @@ export const routes: Routes = [
     children:[
       { path : 'project', component:ListProjectComponent},
       { path : 'task/:id', component:ListTaskComponent},
-      { path : 'ressource' , component:ListRessourceComponent},
+      { path : 'resource/:id' , component:ListRessourceComponent},
 
     ] },
 ];
