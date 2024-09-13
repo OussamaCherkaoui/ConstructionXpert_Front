@@ -1,1 +1,10 @@
-<!--<p>list-ressource works!</p>-->
+
+
+
+<h2>List of Resources</h2>
+<mat-list>
+  <mat-list-item *ngFor="let ressource of ListRessource">
+    <h3 matLine>{{ ressource.name }}</h3>
+    <p matLine>Type: {{ ressource.type }} | Quantity: {{ ressource.quantity}}</p>
+  </mat-list-item>
+</mat-list>
