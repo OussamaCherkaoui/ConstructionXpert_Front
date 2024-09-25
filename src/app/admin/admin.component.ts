@@ -1,12 +1,12 @@
 import {Component, OnInit} from '@angular/core';
 import {MatFormFieldModule, MatLabel} from "@angular/material/form-field";
-import {FormBuilder, FormGroup, ReactiveFormsModule, Validators} from "@angular/forms";
+import {FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators} from "@angular/forms";
 import { MatInputModule} from "@angular/material/input";
 import {
   MatDatepicker,
   MatDatepickerInput,
   MatDatepickerModule,
-  MatDatepickerToggle
+  MatDatepickerToggle,
 } from "@angular/material/datepicker";
 import {MatButtonModule} from "@angular/material/button";
 import {Project} from "../model/project";
@@ -19,6 +19,8 @@ import {Ressource} from "../model/ressource";
 import {RessourceService} from "../service/ressource.service";
 import {ListProjectComponent} from "../list-project/list-project.component";
 import {RouterLink} from "@angular/router";
+import {MatPaginator, PageEvent} from "@angular/material/paginator";
+import {MatIconModule} from "@angular/material/icon";
 
 @Component({
   selector: 'app-admin',
@@ -38,7 +40,10 @@ import {RouterLink} from "@angular/router";
     DatePipe,
     NgForOf,
     ListProjectComponent,
-    RouterLink
+    RouterLink,
+    MatPaginator,
+    MatIconModule,
+    FormsModule
   ],
   templateUrl: './admin.component.html',
   styleUrl: './admin.component.css'
@@ -66,6 +71,12 @@ export class AdminComponent implements OnInit {
   idProjectSelected:number | undefined=0;
   idTaskSelected:number| undefined=0;
   idRessourceSelected:number| undefined=0;
+  pageIndex = 0;
+  ascending = true;
+  totalItems = 0;
+  nameSearched: string="";
+  statusSearched: string = "";
+  typeSearched: string="";
 
   constructor(private fb: FormBuilder,private projectService:ProjectService,private taskService: TaskService,private ressourceService: RessourceService) {}
 
@@ -93,8 +104,10 @@ export class AdminComponent implements OnInit {
   }
 
   getAllProject() {
-    this.projectService.getAllProject().subscribe((projects: Project[]) => {
-      this.projects = projects;
+    this.projectService.getAllProject(this.pageIndex,this.ascending).subscribe(data => {
+      this.projects = data.content;
+      console.log(data);
+      this.totalItems = data.totalElements;
     });
   }
   onSubmit() {
@@ -171,14 +184,15 @@ export class AdminComponent implements OnInit {
   }
 
   refreshTask(id:number|undefined){
-    this.taskService.getAllTaskByIdProject(id).subscribe((tasks: Task[]) => {
-
-      this.tasks = tasks;
+    this.taskService.getAllTaskByIdProject(id,this.pageIndex,this.ascending).subscribe(data => {
+      this.tasks = data.content;
+      this.totalItems = data.totalElements;
     });
   }
   refreshRessource(id:number|undefined){
-    this.ressourceService.getAllRessourceByIdTask(id).subscribe((resources: Ressource[]) => {
-      this.ressources = resources;
+    this.ressourceService.getAllRessourceByIdTask(id,this.pageIndex,this.ascending).subscribe(data => {
+      this.ressources = data.content;
+      this.totalItems = data.totalElements;
     });
   }
   showAddProjectForm() {
@@ -207,12 +221,15 @@ export class AdminComponent implements OnInit {
   }
 
   viewTasks(id: number | undefined) {
-    this.taskService.getAllTaskByIdProject(id).subscribe((tasks: Task[]) => {
+    this.pageIndex=0;
+    this.ascending=true;
+    this.taskService.getAllTaskByIdProject(id,this.pageIndex,this.ascending).subscribe(data => {
       this.selectedProject=false;
       this.selectedProjectTasks=true;
       this.idProjectSelected=id;
-      console.log(tasks);
-      this.tasks = tasks;
+      console.log(data);
+      this.tasks = data.content;
+      this.totalItems = data.totalElements;
     });
   }
   editTask(task: Task) {
@@ -235,11 +252,15 @@ export class AdminComponent implements OnInit {
   }
 
   viewResources(taskId: number | undefined) {
-    this.ressourceService.getAllRessourceByIdTask(taskId).subscribe((resources: Ressource[]) => {
+    this.pageIndex=0;
+    this.ascending=true;
+    this.ressourceService.getAllRessourceByIdTask(taskId,this.pageIndex,this.ascending).subscribe(data => {
       this.selectedProjectTasks=false;
       this.selectedTaskResources=true;
       this.idTaskSelected=taskId;
-      this.ressources = resources;
+      this.ressources = data.content;
+      console.log(this.ressources);
+      this.totalItems = data.totalElements;
     });
   }
 
@@ -275,6 +296,8 @@ export class AdminComponent implements OnInit {
 
 
   goBackToProjects() {
+    this.message='';
+    console.log(this.message);
     this.selectedProject=true;
     this.selectedProjectTasks=false;
     this.tasks=[];
@@ -301,10 +324,69 @@ export class AdminComponent implements OnInit {
   }
 
   goBackInProjectForm() {
+    this.message='';
     this.isEditMode=false;
     this.getAllProject();
     this.selectedProject=true;
     this.isFormProject=false;
     this.projectForm.reset();
+  }
+
+  onPageProjectChange(event: PageEvent) {
+    this.pageIndex=event.pageIndex;
+    this.getAllProject();
+  }
+
+  onPageTaskChange(event: PageEvent) {
+    this.pageIndex=event.pageIndex;
+    this.refreshTask(this.idProjectSelected);
+  }
+
+  onPageRessourceChange(event: PageEvent) {
+    this.pageIndex=event.pageIndex;
+    this.refreshRessource(this.idTaskSelected);
+  }
+
+  toggleSortProjectOrder() {
+    this.ascending = !this.ascending;
+    this.getAllProject();
+  }
+
+
+  toggleSortTaskOrder() {
+    this.ascending = !this.ascending;
+    this.refreshTask(this.idProjectSelected);
+  }
+
+
+  toggleSortRessourceOrder() {
+    this.ascending = !this.ascending;
+    this.refreshRessource(this.idTaskSelected);
+  }
+
+  searchProjectByName() {
+    this.projectService.searchProjectsByName(this.nameSearched)
+      .subscribe(response => {
+        this.projects = response.content;
+        this.totalItems = response.totalItems;
+      }, error => {
+        console.error("Erreur lors de la recherche du projet", error);
+      });
+  }
+
+  searchTasksByStatus() {
+    this.taskService.searchTasksByStatus(this.idProjectSelected,this.statusSearched)
+      .subscribe(response => {
+        this.tasks = response.content;
+        this.totalItems = response.totalItems;
+      })
+  }
+
+    searchRessourcesByType() {
+    this.ressourceService.searchRessourcesByType(this.idTaskSelected,this.typeSearched)
+      .subscribe(response => {
+        this.ressources = response.content;
+        this.totalItems = response.totalItems;
+      })
   }
 }

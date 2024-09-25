@@ -25,8 +25,8 @@ export class ProjectService {
     });
   }
 
-  public getAllProject():Observable<any> {
-    return this.http.get<any>(`${this.apiUrl}/getAll`, { headers: this.getHeaders() });
+  public getAllProject(page:number,ascending:boolean):Observable<any> {
+    return this.http.get<any>(`${this.apiUrl}/getAll/${page}/${ascending}`, { headers: this.getHeaders() });
   }
 
   public saveProject(project:Project): Observable<any> {
@@ -39,5 +39,9 @@ export class ProjectService {
 
   public deleteProject(id: number | undefined): Observable<any> {
     return this.http.delete<any>(`${this.apiUrl}/deleteProject/${id}`, { headers: this.getHeaders() });
+  }
+
+  public searchProjectsByName(nameSearched: string):Observable<any> {
+    return this.http.get<any>(`${this.apiUrl}/getProjectsByName/${nameSearched}`, { headers: this.getHeaders() });
   }
 }

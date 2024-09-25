@@ -25,8 +25,8 @@ export class TaskService {
     });
   }
 
-  public getAllTaskByIdProject(id: number | undefined):Observable<any> {
-    return this.http.get<any>(`${this.apiUrl}/getTaskByIdProject/${id}`,{ headers: this.getHeaders() });
+  public getAllTaskByIdProject(id: number | undefined,page:number,ascending:boolean):Observable<any> {
+    return this.http.get<any>(`${this.apiUrl}/getTaskByIdProject/${id}/${page}/${ascending}`,{ headers: this.getHeaders() });
   }
 
   public saveTask(task:Task): Observable<any> {
@@ -41,4 +41,7 @@ export class TaskService {
     return this.http.delete<any>(`${this.apiUrl}/deleteTask/${id}`, { headers: this.getHeaders() });
   }
 
+  public searchTasksByStatus(id: number | undefined,statusSearched: string): Observable<any> {
+    return this.http.get<any>(`${this.apiUrl}/getTasksByStatus/${id}/${statusSearched}`,{ headers: this.getHeaders() });
+  }
 }
