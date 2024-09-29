@@ -16,6 +16,9 @@ import { NgForOf } from "@angular/common";
 })
 export class ListTaskComponent implements OnInit {
   id!: number;
+  pageIndex = 0;
+  ascending = true;
+  totalItems = 0;
 
   listTasks: Task[] = [];
 
@@ -31,8 +34,8 @@ export class ListTaskComponent implements OnInit {
 
   // Méthode pour récupérer toutes les tâches du projet via le service
   getAllTasks() {
-    this.taskService.getAllTaskByIdProject(this.id).subscribe((data: Task[]) => {
-      this.listTasks = data;
+    this.taskService.getAllTaskByIdProject(this.id,this.pageIndex,this.ascending).subscribe(data => {
+      this.listTasks = data.content;
     });
   }
 }

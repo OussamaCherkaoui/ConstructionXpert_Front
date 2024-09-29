@@ -69,7 +69,17 @@
       </div>
 
       <!-- Liste des projets disponibles -->
+      <button mat-raised-button color="basic" (click)="getAllProject()">Toutes les Projets</button>
       <div class="project-list">
+        <div class="search-bar">
+          <mat-form-field appearance="outline">
+            <mat-label>Rechercher un projet</mat-label>
+            <input matInput placeholder="Entrez le nom du projet" [(ngModel)]="nameSearched">
+          </mat-form-field>
+          <button mat-raised-button color="primary" (click)="searchProjectByName()">
+            Rechercher
+          </button>
+        </div>
         <h2>Projets Disponibles</h2>
 
         <div *ngFor="let project of projects" class="project-card">
@@ -93,6 +103,17 @@
           </div>
         </div>
       </div>
+      <div class="controls">
+        <button mat-raised-button (click)="toggleSortProjectOrder()">
+          <mat-icon>{{ ascending ? 'arrow_upward' : 'arrow_downward' }}</mat-icon>
+          {{ ascending ? 'Ascendant' : 'Descendant' }}
+        </button>
+      </div>
+      <mat-paginator
+        [pageSize]="5"
+        [length]="totalItems"
+        (page)="onPageProjectChange($event)"
+      ></mat-paginator>
     </div>
 
 
@@ -101,6 +122,18 @@
         <button mat-raised-button color="primary" (click)="showAddTaskForm()">
           Ajouter une task
         </button>
+      </div>
+      <button mat-raised-button color="basic" (click)="viewTasks(idProjectSelected)">Toutes les Taches</button>
+      <div class="task-list">
+        <div class="search-bar">
+          <mat-form-field appearance="outline">
+            <mat-label>Rechercher une tache</mat-label>
+            <input matInput placeholder="Entrez status du tache" [(ngModel)]="statusSearched">
+          </mat-form-field>
+          <button mat-raised-button color="primary" (click)="searchTasksByStatus()">
+            Rechercher
+          </button>
+        </div>
       </div>
       <!-- Affichage des tâches liées au projet sélectionné -->
       <div class="task-list">
@@ -125,6 +158,17 @@
           </div>
         </div>
       </div>
+      <div class="controls">
+        <button mat-raised-button (click)="toggleSortTaskOrder()">
+          <mat-icon>{{ ascending ? 'arrow_upward' : 'arrow_downward' }}</mat-icon>
+          {{ ascending ? 'Ascendant' : 'Descendant' }}
+        </button>
+      </div>
+      <mat-paginator
+        [pageSize]="5"
+        [length]="totalItems"
+        (page)="onPageTaskChange($event)"
+      ></mat-paginator>
       <button mat-raised-button color="basic" (click)="goBackToProjects()">Retour aux Projets</button>
     </div>
 
@@ -134,6 +178,16 @@
       <div class="add-ressource">
         <button mat-raised-button color="primary" (click)="showAddRessourceForm()">
           Ajouter une Ressource
+        </button>
+      </div>
+      <button mat-raised-button color="basic" (click)="viewResources(idTaskSelected)">Toutes les ressources</button>
+      <div class="search-bar">
+        <mat-form-field appearance="outline">
+          <mat-label>Rechercher une Ressource</mat-label>
+          <input matInput placeholder="Entrez type du ressource" [(ngModel)]="typeSearched">
+        </mat-form-field>
+        <button mat-raised-button color="primary" (click)="searchRessourcesByType()">
+          Rechercher
         </button>
       </div>
       <!-- Affichage des ressources associées à une tâche -->
@@ -155,6 +209,17 @@
           </div>
         </div>
       </div>
+      <div class="controls">
+        <button mat-raised-button (click)="toggleSortRessourceOrder()">
+          <mat-icon>{{ ascending ? 'arrow_upward' : 'arrow_downward' }}</mat-icon>
+          {{ ascending ? 'Ascendant' : 'Descendant' }}
+        </button>
+      </div>
+      <mat-paginator
+        [pageSize]="5"
+        [length]="totalItems"
+        (page)="onPageRessourceChange($event)"
+      ></mat-paginator>
       <button mat-raised-button color="basic" (click)="goBackToTasks()">Retour aux tâches</button>
     </div>
 

@@ -25,8 +25,8 @@ export class RessourceService {
     });
   }
 
-  public getAllRessourceByIdTask(id: number | undefined):Observable<any> {
-    return this.http.get<any>(`${this.apiUrl}/getRessourceByIdTask/${id}`,{ headers: this.getHeaders() });
+  public getAllRessourceByIdTask(id: number | undefined,page:number,ascending:boolean):Observable<any> {
+    return this.http.get<any>(`${this.apiUrl}/getRessourceByIdTask/${id}/${page}/${ascending}`,{ headers: this.getHeaders() });
   }
 
   public saveRessource(ressource:Ressource): Observable<any> {
@@ -39,5 +39,9 @@ export class RessourceService {
 
   public deleteRessource(id: number | undefined): Observable<any> {
     return this.http.delete<any>(`${this.apiUrl}/deleteRessource/${id}`, { headers: this.getHeaders() });
+  }
+
+  public searchRessourcesByType(idTaskSelected: number | undefined, typeSearched: string) {
+    return this.http.get<any>(`${this.apiUrl}/getRessourceByType/${idTaskSelected}/${typeSearched}`,{ headers: this.getHeaders() });
   }
 }

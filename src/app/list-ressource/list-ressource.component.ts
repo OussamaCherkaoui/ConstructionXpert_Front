@@ -22,7 +22,10 @@ import {ActivatedRoute} from "@angular/router";
 export class ListRessourceComponent implements  OnInit{
 
   ListRessource :Ressource[]=[];
-  ressourceId!: number
+  ressourceId!: number;
+  pageIndex = 0;
+  ascending = true;
+  totalItems = 0;
 
   ngOnInit(): void {
     this.route.params.subscribe(params => {
@@ -38,8 +41,8 @@ export class ListRessourceComponent implements  OnInit{
 
 
   getAlltasks(){
-    this.resourceService.getAllRessourceByIdTask(this.ressourceId).subscribe((data:Ressource[]) =>{
-      this.ListRessource=data;
+    this.resourceService.getAllRessourceByIdTask(this.ressourceId,this.pageIndex,this.ascending).subscribe(data =>{
+      this.ListRessource=data.content;
     })
   }
 

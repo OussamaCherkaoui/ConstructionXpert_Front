@@ -23,6 +23,9 @@ import {RessourceService} from "../service/ressource.service";
 export class ListProjectComponent  implements OnInit {
 
   ListProject: Project[] = [];
+  pageIndex = 0;
+  ascending = true;
+  totalItems = 0;
 
   ngOnInit(): void {
     this.getAllProject();
@@ -34,8 +37,8 @@ export class ListProjectComponent  implements OnInit {
   }
 
   getAllProject() {
-    this.projetService.getAllProject().subscribe((data: Project[]) => {
-      this.ListProject = data;
+    this.projetService.getAllProject(this.pageIndex,this.ascending).subscribe(data => {
+      this.ListProject = data.content;
     })
 
   }
