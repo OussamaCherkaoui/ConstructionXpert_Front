@@ -170,7 +170,7 @@ body {
   background: #1b2735;
 }
 .sidebar li a:hover {
-  background: #f7c400;
+  background: #7f6c5e;
 }
 .sidebar li a .links_name {
   color: #fff;
@@ -845,3 +845,7 @@ mat-form-field input[type='number']::-webkit-outer-spin-button {
 .navbar-toggler:focus {
   outline: none;
 }
+
+
+/*/////////////////////////////////////////////*/
+
