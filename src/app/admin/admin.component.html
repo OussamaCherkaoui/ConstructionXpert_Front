@@ -2,19 +2,20 @@
 <link href='https://unpkg.com/boxicons@2.0.7/css/boxicons.min.css' rel='stylesheet'>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<div class="sidebar">
+<div class="sidebar" id="sidebar">
   <div class="logo-details">
     <i class='bx bx-support icon'></i>
-    <i class='bx bx-menu' id="btn"></i>
+    <button class="navbar-toggler" type="button" id="sidebarToggler">
+      <i class='bx bx-menu'></i>
+    </button>
   </div>
   <ul class="nav-list">
     <li>
-      <i class='bx bx-search' ></i>
+      <i class='bx bx-search'></i>
       <input type="text" placeholder="Search...">
       <span class="tooltip">Search</span>
     </li>
 
-    <!--*************** MENU ********************-->
     <li>
       <a routerLink="main">
         <i class='bx bx-grid-alt'></i>
@@ -25,16 +26,14 @@
 
     <li>
       <a routerLink="userc">
-        <i class='bx bx-user' ></i>
+        <i class='bx bx-user'></i>
         <span class="links_name">User alaa</span>
       </a>
       <span class="tooltip">User</span>
     </li>
-
-
-
   </ul>
 </div>
+
 <section class="home-section">
 
   <!--   //// Header ////   -->
