@@ -77,6 +77,8 @@ export class AdminComponent implements OnInit {
   nameSearched: string="";
   statusSearched: string = "";
   typeSearched: string="";
+  isSidebarClosed: boolean = false;
+
 
   constructor(private fb: FormBuilder,private projectService:ProjectService,private taskService: TaskService,private ressourceService: RessourceService) {}
 
@@ -101,6 +103,9 @@ export class AdminComponent implements OnInit {
       quantity: [this.resourceData?.quantity || '', [Validators.required]],
     });
       this.getAllProject();
+  }
+  toggleSidebar() {
+    this.isSidebarClosed = !this.isSidebarClosed;
   }
 
   getAllProject() {
