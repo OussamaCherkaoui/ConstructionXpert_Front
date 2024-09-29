@@ -11,7 +11,7 @@ export class ProjectService {
   private apiUrl: string;
 
   constructor(private http: HttpClient) {
-    this.apiUrl = 'http://localhost:8080/PROJECT/apiProject';
+    this.apiUrl = 'http://localhost:8099/PROJECT/apiProject';
   }
 
   private getHeaders(): HttpHeaders {

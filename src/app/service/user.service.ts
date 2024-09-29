@@ -11,7 +11,7 @@ export class UserService {
   private apiUrl: string;
 
   constructor(private http: HttpClient) {
-    this.apiUrl = 'http://localhost:8080/AUTHENTIFICATION-SERVICE/auth';
+    this.apiUrl = 'http://localhost:8099/AUTHENTIFICATION-SERVICE/auth';
   }
 
   public registerUser(user:User): Observable<any> {

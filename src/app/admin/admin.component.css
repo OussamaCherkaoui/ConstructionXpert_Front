@@ -198,9 +198,8 @@ body {
   border-radius: 12px;
 }
 .logoo{
-  height: 59px;
+  height: 45px;
   transition: all ease-in-out 0.3s;
-  margin-top: 6px;
 }
 #lo{
   height: 59px;
@@ -307,6 +306,7 @@ body {
   align-items: center;
   justify-content: space-between;
   height: 100%;
+  align-content: center;
 }
 
 #header .header ul {
@@ -321,7 +321,7 @@ body {
   float: left;
 }
 #header .header .logo img {
-  height: 27px;
+  height: 45px;
   transition: all ease-in-out 0.3s;
 }
 #header.shrink .header .logo img {
