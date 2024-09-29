@@ -2,10 +2,10 @@
 <link href='https://unpkg.com/boxicons@2.0.7/css/boxicons.min.css' rel='stylesheet'>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<div class="sidebar" id="sidebar">
+<div class="sidebar" [class.close]="isSidebarClosed" id="sidebar">
   <div class="logo-details">
     <i class='bx bx-support icon'></i>
-    <button class="navbar-toggler" type="button" id="sidebarToggler">
+    <button class="navbar-toggler" type="button" (click)="toggleSidebar()">
       <i class='bx bx-menu'></i>
     </button>
   </div>
