@@ -8,8 +8,8 @@ import {ListTaskComponent} from "./list-task/list-task.component";
 import {ListRessourceComponent} from "./list-ressource/list-ressource.component";
 
 export const routes: Routes = [
-  { path: '', component: LoginComponent},
-  { path: 'signUp', component: SignupComponent},
+  { path: 'login', component: LoginComponent},
+  { path: '', component: SignupComponent},
   { path: 'admin', component: AdminComponent},
 
   {  path: 'user',

@@ -11,7 +11,7 @@ export class RessourceService {
   private apiUrl: string;
 
   constructor(private http: HttpClient) {
-    this.apiUrl = 'http://localhost:8080/RESSOURCE/apiRessource';
+    this.apiUrl = 'http://localhost:8099/RESSOURCE/apiRessource';
   }
 
   private getHeaders(): HttpHeaders {
