@@ -652,9 +652,10 @@ mat-form-field input[type='number']::-webkit-outer-spin-button {
   top: 0;
   left: 0;
   height: 100%;
-  background: #111;
+  background: #333;
   padding: 15px;
   transition: width 0.3s ease;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
 }
 
 .sidebar.close {
@@ -663,17 +664,18 @@ mat-form-field input[type='number']::-webkit-outer-spin-button {
 
 .sidebar .logo-details i {
   font-size: 28px;
-  color: white;
+  color: #fff;
 }
 
 .sidebar .nav-list li {
   list-style: none;
   padding: 10px 0;
+  border-bottom: 1px solid #444;
 }
 
 .sidebar .nav-list li a {
   text-decoration: none;
-  color: white;
+  color: #fff;
   display: flex;
   align-items: center;
 }
@@ -697,7 +699,7 @@ mat-form-field input[type='number']::-webkit-outer-spin-button {
 #btn {
   cursor: pointer;
   font-size: 22px;
-  color: white;
+  color: #fff;
 }
 
 .sidebar {
@@ -706,7 +708,7 @@ mat-form-field input[type='number']::-webkit-outer-spin-button {
   top: 0;
   left: 0;
   height: 100%;
-  background: #111;
+  background: #333;
   transition: width 0.3s ease;
 }
 
@@ -716,17 +718,18 @@ mat-form-field input[type='number']::-webkit-outer-spin-button {
 
 .sidebar .logo-details i {
   font-size: 28px;
-  color: white;
+  color: #fff;
 }
 
 .sidebar .nav-list li {
   list-style: none;
   padding: 10px 0;
+  border-bottom: 1px solid #444;
 }
 
 .sidebar .nav-list li a {
   text-decoration: none;
-  color: white;
+  color: #fff;
   display: flex;
   align-items: center;
 }
@@ -751,7 +754,7 @@ mat-form-field input[type='number']::-webkit-outer-spin-button {
   background: none;
   border: none;
   cursor: pointer;
-  color: white;
+  color: #fff;
   font-size: 22px;
 }
 
