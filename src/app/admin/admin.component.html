@@ -68,7 +68,7 @@
       </div>
 
       <!-- Liste des projets disponibles -->
-      <button mat-raised-button color="basic" (click)="getAllProject()">Toutes les Projets</button>
+      <button mat-raised-button style="background-color: #003366 ; color: #fff" (click)="getAllProject()">Toutes les Projets</button>
       <div class="project-list">
         <div class="search-bar">
           <mat-form-field appearance="outline">
@@ -103,7 +103,7 @@
         </div>
       </div>
       <div class="controls">
-        <button mat-raised-button (click)="toggleSortProjectOrder()">
+        <button mat-raised-button style="background-color: #003366; color: #fff" (click)="toggleSortProjectOrder()">
           <mat-icon>{{ ascending ? 'arrow_upward' : 'arrow_downward' }}</mat-icon>
           {{ ascending ? 'Ascendant' : 'Descendant' }}
         </button>
